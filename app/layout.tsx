@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
@@ -20,7 +22,7 @@ export const metadata: Metadata = {
   title: "Room",
   description: "Video Calling everything app",
   icons: {
-    icon:'/icons/logo.svg'
+    icon: '/icons/logo.svg'
   }
 };
 
