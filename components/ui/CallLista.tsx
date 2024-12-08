@@ -1,69 +1,67 @@
-//@ts-nocheck
-"use client"
+'use client';
 
-import { useGetCalls } from '@/hooks/useGetCalls';
-import { CallRecording } from '@stream-io/node-sdk';
-import { useRouter } from 'next/navigation';
-import React, { useState } from 'react'
-import MeetingCard from './MeetingCard';
-import { Call } from '@stream-io/video-react-sdk';
+import { Call, CallRecording } from '@stream-io/video-react-sdk';
+
 import Loader from './Loader';
-import { useEffect } from 'react';
+import { useGetCalls } from '@/hooks/useGetCalls';
+import MeetingCard from './MeetingCard';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 const CallLista = ({ type }: { type: 'ended' | 'upcoming' | 'recordings' }) => {
-
-    const { endedCalls, upcomingCalls, callRecordings, isLoading } = useGetCalls();
     const router = useRouter();
+    const { endedCalls, upcomingCalls, callRecordings, isLoading } =
+        useGetCalls();
     const [recordings, setRecordings] = useState<CallRecording[]>([]);
 
     const getCalls = () => {
         switch (type) {
             case 'ended':
                 return endedCalls;
-
-
             case 'recordings':
                 return recordings;
-
-
             case 'upcoming':
                 return upcomingCalls;
-
             default:
-                [];
+                return [];
         }
-    }
+    };
 
     const getNoCallsMessage = () => {
         switch (type) {
             case 'ended':
                 return 'No Previous Calls';
-            case 'recordings':
-                return 'No Recordings';
             case 'upcoming':
                 return 'No Upcoming Calls';
+            case 'recordings':
+                return 'No Recordings';
             default:
                 return '';
         }
-    }
+    };
 
     useEffect(() => {
         const fetchRecordings = async () => {
-            const callData = await Promise.all(callRecordings?.map((meeting) => meeting.queryRecordings()) ?? [],);
+            const callData = await Promise.all(
+                callRecordings?.map((meeting) => meeting.queryRecordings()) ?? [],
+            );
 
-            const recordings = callData.filter(call => call.recordings.length > 0).flatMap(call => call.recordings);
+            const recordings = callData
+                .filter((call) => call.recordings.length > 0)
+                .flatMap((call) => call.recordings);
 
             setRecordings(recordings);
+        };
 
+        if (type === 'recordings') {
+            fetchRecordings();
         }
-        if (type === 'recordings') fetchRecordings();
-    }, [type, callRecordings])
+    }, [type, callRecordings]);
 
+    if (isLoading) return <Loader />;
 
     const calls = getCalls();
     const noCallsMessage = getNoCallsMessage();
-
-    if (isLoading) return <Loader />
 
     return (
         <div className="grid grid-cols-1 gap-5 xl:grid-cols-2">
@@ -106,7 +104,7 @@ const CallLista = ({ type }: { type: 'ended' | 'upcoming' | 'recordings' }) => {
                 <h1 className="text-2xl font-bold text-white">{noCallsMessage}</h1>
             )}
         </div>
-    )
-}
+    );
+};
 
-export default CallLista
+export default CallLista;

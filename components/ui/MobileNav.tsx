@@ -4,9 +4,6 @@ import React from 'react'
 import {
     Sheet,
     SheetContent,
-    SheetDescription,
-    SheetHeader,
-    SheetTitle,
     SheetTrigger,
     SheetClose
 } from "@/components/ui/sheet"

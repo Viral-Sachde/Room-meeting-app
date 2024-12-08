@@ -1,7 +1,6 @@
 'use client'
 
-import React, { useReducer, useState } from 'react'
-import Image from 'next/image'
+import React, {  useState } from 'react'
 import HomeCard from './HomeCard'
 import { useRouter } from 'next/navigation'
 import MeetingModal from './MeetingModal'

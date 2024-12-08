@@ -2,16 +2,12 @@ import React, { ReactNode } from 'react'
 import {
     Dialog,
     DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
+    
 } from "@/components/ui/dialog"
 
 import Image from 'next/image'
 import { cn } from '@/lib/utils'
 import { Button } from './Button'
-import { handleWebpackExternalForEdgeRuntime } from 'next/dist/build/webpack/plugins/middleware-plugin'
 
 
 interface MeetingModalProps {

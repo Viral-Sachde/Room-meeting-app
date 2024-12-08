@@ -5,7 +5,6 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { avatarImages } from "@/constants";
 import { Button } from "./Button";
-import { Toast } from "./toast";
 import { useToast } from "@/hooks/use-toast";
 
 interface MeetingCardProps {
